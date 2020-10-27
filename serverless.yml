@@ -23,12 +23,21 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
-
+  environment:
+    USER_AGENT: ${file(./serverless.env.yml):USER_AGENT, ''}
+    CLIENT_ID: ${file(./serverless.env.yml):CLIENT_ID, ''}
+    CLIENT_SECRET: ${file(./serverless.env.yml):CLIENT_SECRET, ''}
+    USERNAME: ${file(./serverless.env.yml):USERNAME, ''}
+    PASSWORD: ${file(./serverless.env.yml):PASSWORD, ''}
 functions:
-  createScriptHandler:
-    handler: handler.createScriptHandler
+  apiHandler:
+    handler: index.apiHandler
     events:
-      - schedule: rate(2 hours)
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+plugins:
+  - serverless-offline
+
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
