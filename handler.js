@@ -1,9 +1,16 @@
+'use strict'
 const serverless = require('serverless-http');
 const express = require('express');
-const {fetchTopPosts} = require('./FetchContent');
+const {fetchTopPosts} = require('./src/FetchContent.js');
 const app = express();
 
-// API endpoints go here.
+module.exports.storeNarrationHandler = async () => {
+  // try {
+  //   return await storeNarration();
+  // } catch (e) {
+  //   console.error(e)
+  // }
+}
 app.get('/:subreddit/:period', async (req, res) => {
   let posts = [];
   try {
@@ -15,3 +22,4 @@ app.get('/:subreddit/:period', async (req, res) => {
 });
 
 module.exports.apiHandler = serverless(app);
+
