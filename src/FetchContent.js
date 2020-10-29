@@ -1,5 +1,5 @@
-'use strict';
-const Snoowrap = require('snoowrap');
+'use strict'
+const Snoowrap = require('snoowrap')
 
 /**
  *
@@ -11,34 +11,33 @@ const createRequester = () => {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     username: process.env.USERNAME,
-    password: process.env.PASSWORD,
-  });
-};
-
+    password: process.env.PASSWORD
+  })
+}
 
 const fetchTopPosts = async (subredditName, period) => {
-  let posts;
-  const response = [];
+  let posts
+  const response = []
   try {
-    const requester = createRequester();
+    const requester = createRequester()
     posts = await requester.getSubreddit(subredditName)
-        .getTop({time: period});
+      .getTop({ time: period })
     for (const post of posts) {
       response.push({
         title: post.title,
         score: post.score,
         selfText: post.selftext,
         selfTextHtml: post.selftext_html,
-        created: post.created,
-      });
+        created: post.created
+      })
     }
-    return response;
+    return response
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
-};
+}
 
 module.exports = {
   createRequester,
-  fetchTopPosts,
-};
+  fetchTopPosts
+}

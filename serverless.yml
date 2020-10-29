@@ -47,11 +47,15 @@ resources:
                 SSEAlgorithm: AES256
 functions:
   apiHandler:
-    handler: index.apiHandler
+    handler: handler.apiHandler
     iamRoleStatementsInherit: true
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
+  storeNarrationHandler:
+    handler: handler.storeNarrationHandler
+    events:
+      - rate (1 day)
 plugins:
   - serverless-offline
   - serverless-iam-roles-per-function
