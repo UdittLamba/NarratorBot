@@ -58,5 +58,4 @@ functions:
       - rate (1 day)
 plugins:
   - serverless-offline
-  - serverless-webpack
   - serverless-iam-roles-per-function
